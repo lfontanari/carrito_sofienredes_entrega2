@@ -75,6 +75,15 @@ let productosEnCarrito = [];
 function addCarrito (producto) {
   productosEnCarrito.push(producto);
   console.log(productosEnCarrito);
+  
+
+  Swal.fire(
+    'The Internet?',
+    'That thing is still around?',
+    'question'
+  )
+
+
 }
 
 

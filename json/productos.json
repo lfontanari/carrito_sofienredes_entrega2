@@ -1,0 +1,51 @@
+[
+{   
+    "ID" : "1",
+    "categoria" : "E-BOOKS",
+    "nombre" : "Máster en Planificación",
+    "precio": 1800,
+    "imagen": "./assets/img/SR_MasterEnPlanificacion.png"
+},
+{   
+    "ID" : "2",
+    "categoria" : "PLANTILLAS EDITABLES",
+    "nombre" : "Planner en Sheets",
+    "precio": 1800,
+    "imagen": "./assets/img/SR_VERDE.png"
+},
+{   
+    "ID" : "3",
+    "categoria" : "PLANTILLAS EDITABLES",
+    "nombre" : "Planner en Notion",
+    "precio": 2500,
+    "imagen": "./assets/img/SR_PlannerNotion.png"
+},
+{   
+    "ID" : "4",
+    "categoria" : "PRESETS",
+    "nombre" : "Pack Minimalista",
+    "precio": 1500,
+    "imagen": "./assets/img/SR_VERDE.png"
+},
+{   
+    "ID" : "5",
+    "categoria" : "SERVICIOS",
+    "nombre" : "Gestión de Redes Sociales",
+    "precio": 6500,
+    "imagen": "./assets/img/SR_MarketingDigital.png"
+},
+{   
+    "ID" : "6",
+    "categoria" : "SERVICIOS",
+    "nombre" : "Branding",
+    "precio": 8000,
+    "imagen": "./assets/img/Servicios.png"
+},
+{   
+    "ID" : "7",
+    "categoria" : "SERVICIOS",
+    "nombre" : "Asesorías 1:1",
+    "precio": 5500,
+    "imagen": "./assets/img/SR_VERDE.png"
+}
+]
