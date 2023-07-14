@@ -1,3 +1,134 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+body {
+    font-family:'Open Sans', cursive;
+    margin: 0;
+    padding: 0;
+    margin: 20px;
+  }
+   /* rosa: #f48aba
+   // verde: #2cb46c
+   //  naranja #ff6d27*/
+
+  h1 {
+    color: #333;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 200px;
+    color: #f48aba;
+
+
+  }
+
+  h2{
+    margin-bottom: 100px;
+  }
+
+  img {
+    width: 300px;
+    height: 250px;
+
+  }
+
+  
+  .producto {
+    margin-bottom: 20px;
+
+  }
+
+
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 30px;
+  margin-top: 55px;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.subtitle {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.instructions {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+main {
+  padding: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+footer {
+  margin-top: 20px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+footer img {
+  width: 30px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.card-img-top {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+
+footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+footer img {
+  width: 30px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card-img-top {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-item img {
+  max-height: 300px;
+}
+
+p{
+  color: rgb(0, 55, 255);
+  
+
+  
+}

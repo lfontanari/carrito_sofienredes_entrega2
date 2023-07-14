@@ -2,7 +2,7 @@
 {   
     "ID" : "1",
     "categoria" : "E-BOOKS",
-    "nombre" : "Máster en Planificación",
+    "nombre" : "Master en Planificacion",
     "precio": 1800,
     "imagen": "./assets/img/SR_MasterEnPlanificacion.png"
 },
@@ -30,7 +30,7 @@
 {   
     "ID" : "5",
     "categoria" : "SERVICIOS",
-    "nombre" : "Gestión de Redes Sociales",
+    "nombre" : "Gestion de Redes Sociales",
     "precio": 6500,
     "imagen": "./assets/img/SR_MarketingDigital.png"
 },
@@ -44,7 +44,7 @@
 {   
     "ID" : "7",
     "categoria" : "SERVICIOS",
-    "nombre" : "Asesorías 1:1",
+    "nombre" : "Asesorias 1:1",
     "precio": 5500,
     "imagen": "./assets/img/SR_VERDE.png"
 }
