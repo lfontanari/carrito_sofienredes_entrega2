@@ -1,158 +1,187 @@
+document.addEventListener("DOMContentLoaded", () => {
+  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  carrito.forEach((itemCarrito) => carritoHTML(itemCarrito));
+  modalCarrito.classList.add("modal-oculto");
+  carritoVisible = false;
+  actualizarCarrito();
+});
 
-class TiendaSofi {
-  
-  constructor() {
-    const productContainer = document.querySelector('#product-container');
-    this.carrito = [];
+class Producto {
+  constructor(id, categoria, nombre, precio, imagen) {
+    this.id = id;
+    this.categoria = categoria;
+    this.nombre = nombre;
+    this.precio = precio;
+    this.imagen = imagen;
+  }
+}
+
+
+const productos = [
+  new Producto(
+    1,
+    "E-BOOKS",
+    "Master en Planificacion",
+    1800,
+    "./assets/img/SR_MasterEnPlanificacion.png"
+  ),
+  new Producto(
+    2,
+    "PLANTILLAS EDITABLES",
+    "Planner en Sheets",
+    1800,
+    "./assets/img/SR_VERDE.png"
+  ),
+  new Producto(  
+    3,
+     "PLANTILLAS EDITABLES",
+     "Planner en Notion",
+    2500,
+     "./assets/img/SR_PlannerNotion.png"
+  ),
+  new Producto(
+    4,
+    "PRESETS",
+    "Pack Minimalista",
+    1500,
+    "./assets/img/SR_VERDE.png"
+  ),
+  new Producto(
    
-    this.productos = [];
+    5,
+    "SERVICIOS",
+    "Gestion de Redes Sociales",
+    6500,
+    "./assets/img/SR_MarketingDigital.png"
+  ),
+  new Producto(  
+    6,
+    "SERVICIOS",
+    "Branding",
+    8000,
+    "./assets/img/Servicios.png"
+  ),
+  new Producto(  
+    7,
+    "SERVICIOS",
+    "Asesorias 1:1",
+    5500,
+    "./assets/img/SR_VERDE.png"
+  ),
+];
 
-    this.loadProductos();
+let carrito = [];
+const modalCarrito = document.querySelector(".carrito-container");
+const botonCarrito = document.querySelector("#carrito");
+const contenedor = document.querySelector("#product-container");
+let contenedorCarrito;
+let carritoVisible = false;
 
-    this.loadCartsHtml();
 
-    const buttons = document.querySelectorAll('.btn.btn-primary');
-    buttons.forEach(button => {
-      button.addEventListener('click', (event) => {
-        const nombre = event.target.id;
-        const producto = this.getProductByName(nombre);
-        this.getProductPrice(producto);
+function guardarCarrito(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+//FUNCION PARA MOSTRAR PRODUCTOS
+function mostrarProductos(productos) {
+  contenedor.innerHTML = "";
+  productos.forEach(function (producto) {
+      const contenedorProductos = document.createElement("div");
+      contenedorProductos.classList.add("tarjeta");
+      contenedorProductos.innerHTML = `
+                <img src="${producto.imagen}">
+                <h6>${producto.categoria} : ${producto.nombre}</h6>
+                <p>$${producto.precio}</p>
+                <button class='agregar_carrito' id='${producto.id}'>Agregar al carrito</button>`;
+      contenedor.appendChild(contenedorProductos);
+      const imagen = contenedorProductos.querySelector("img");
+    }
+  );
+  //AGREGAR AL CARRITO
+  const botonAgregar = document.querySelectorAll(".agregar_carrito");
+  botonAgregar.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      modalCarrito.classList.add("modal-oculto");
+      carritoVisible = false;
+      const botonId = parseInt(this.id);
+      const productoAgregado = productos.find(
+        (producto) => producto.id === botonId
+      );
+      carrito.push(productoAgregado);
+      guardarCarrito(carrito);
+
+      Swal.fire({
+        text: "Producto agregado al carrito!",
+        imageUrl: productoAgregado.imagen,
+        imageWidth: 350,
+        imageHeight: 300,
+        imageAlt: "foto de producto",
+        confirmButtonText: "OK",
       });
+      actualizarCarrito();
     });
-  }
-
-
-
- loadProductos() {
-    const urlProductos = './json/productos.json';
-    fetch(urlProductos)
-      .then(response => response.json())
-      .then(data => {
-        this.productos = data;
-      })
-      .catch(error => {
-        console.error('Error al cargar los productos:', error);
-      });
-  }
-
-  // cargar los productos leidos del jason en las tarjetas del html
-  loadCartsHtml() {
-    // recorro el arreglo de productos y creo las cartas para mostrar en el front
-    this.productos.forEach( producto => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add("producto");
-        productDiv.style.backgroundColor='#FFFFFF';
-        //innerHTML
-        productDiv.innerHTML = `
-         <div class='card'>
-          <h3>${producto.ID}</h3>
-          <h1>${producto.nombre}</h1>
-          <p>${producto.precio}</p>
-          <p>${producto.categoria}</p>
-          <button class="agregar-carrito">Agregar al Carrito</button>
-          <button class="eliminar-carrito">Eliminar del Carrito</button>
-        </div> `;
-
-        productContainer.appendChild(productDiv);
-
-        const addButton = productDiv.querySelector('.agregar-carrito');
-        addButton.addEventListener('click', () => {
-          console.log("Se agrego al carrito!", producto.nombre);
-          addCarrito(producto);
-        });
-      
-      
-        const deleteButton = productDiv.querySelector('.eliminar-carrito');
-        addButton.addEventListener('click', () => {
-          console.log("Se saco del carrito!", producto.nombre);
-          eliminarCarrito(producto.ID);
-        });
-      })
-    }
-
-    
-    getProductByName(nombre) {
-      return this.productos.find(producto => producto.nombre === nombre);
-    }
-
-    getProductPrice(producto) {
-      const  nombre = producto;
-
-      Swal.fire({
-        title: '¿Desea comprar este producto?',
-        text: `No podrá revertir esta acción para el producto ${nombre}!`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, comprar',
-        cancelButtonText: 'No, cancelar',
-        reverseButtons: true,
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      }).then((result) => {
-        if (result.isConfirmed) {
-          
-          this.carrito.push({ producto: nombre });
-          this.showAlert(`El producto ${nombre} agregado al carrito de compras.`);
-          console.log(`Producto ${nombre} agregado al carrito.`);
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          this.showAlert("La acción ha sido cancelada.");
-        }
-      });
-    }
-
-
-   
-
-    showAlert(message) {
-      Swal.fire({
-        title: message,
-        icon: 'success',
-        customClass: {
-          confirmButton: 'btn btn-success'
-        },
-        buttonsStyling: false
-      });
-    }
+  });
 }
 
-
-
-
-const tiendaSofi = new TiendaSofi();
-
-//----------------------------------------------------------------
-/*
-let productosEnCarrito = [];
-
-function addCarrito (producto) {
-  productosEnCarrito.push(producto);
-  console.log(productosEnCarrito);
-  
-
-  Swal.fire(
-    'The Internet?',
-    'That thing is still around?',
-    'question'
-  )
-
-
-}
-
-
-// Función para eliminar un producto del carrito
-function eliminarCarrito(id) {
-  // Buscar el índice del producto en el carrito
-  const indice = productosEnCarrito.findIndex(item => item.id === id);
-
-  if (indice !== -1) {
-    // Eliminar el producto del carrito
-    const productoEliminado = productosEnCarrito.splice(indice, 1)[0];
-    console.log(`El producto "${productoEliminado.nombre}" se eliminó del carrito.`);
+//MOSTRAR CARRITO
+botonCarrito.addEventListener("click", function () {
+  if (carritoVisible) {
+    modalCarrito.innerHTML = "";
+    modalCarrito.classList.add("modal-oculto");
+    carritoVisible = false;
   } else {
-    console.log("El producto no existe en el carrito.");
+    modalCarrito.innerHTML = "";
+    carrito.forEach(carritoHTML);
+    modalCarrito.classList.remove("modal-oculto");
+    carritoVisible = true;
+    if (carrito.length === 0) {
+      Toastify({
+        text: "El carrito esta vacio!",
+        className: "info",
+        duration: 3000,
+        position: "center",
+      }).showToast();
+    } else {
+      const btnVaciarCarrito = document.createElement("button");
+      btnVaciarCarrito.id = "vaciar-carrito";
+      btnVaciarCarrito.textContent = "Vaciar Carrito";
+      btnVaciarCarrito.addEventListener("click", vaciarCarrito);
+      modalCarrito.appendChild(btnVaciarCarrito);
+    }
+  }
+});
+//GENERAR HTML DEL CARRITO
+function carritoHTML(itemCarrito) {
+  contenedorCarrito = document.createElement("div");
+  contenedorCarrito.classList.add("item-carrito");
+  contenedorCarrito.innerHTML = `
+            <img src='${itemCarrito.imagen}'>
+            <div class="item-texto">
+            <h6>${itemCarrito.categoria} : ${itemCarrito.nombre}</h6>
+            <p>$${itemCarrito.precio}</p>
+            </div>
+            `;
+  modalCarrito.appendChild(contenedorCarrito);
+  const separador = document.createElement("hr");
+  modalCarrito.appendChild(separador);
+}
+
+function actualizarCarrito() {
+  modalCarrito.innerHTML = "";
+  carrito.forEach(function (itemCarrito) {
+    carritoHTML(itemCarrito);
+  });
+  if (carrito.length === 0) {
+    modalCarrito.classList.add("modal-oculto");
+    carritoVisible = false;
   }
 }
-*/
+
+function vaciarCarrito() {
+  carrito = [];
+  guardarCarrito(carrito);
+  actualizarCarrito();
+  modalCarrito.classList.add("modal-oculto");
+  carritoVisible = false;
+}
+
+mostrarProductos(productos);
